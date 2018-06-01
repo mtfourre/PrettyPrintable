@@ -15,7 +15,7 @@ public extension PrettyPrintable {
     }
     
     fileprivate var properties: [String] {
-        return Mirror(reflecting: self).children.flatMap({ $0.label })
+        return Mirror(reflecting: self).children.compactMap({ $0.label })
     }
     
     public func getPropertiesString(depth: Int = 0, nameless: Bool = false) -> String {
