@@ -11,7 +11,7 @@ public protocol PrettyPrintable {
 
 public extension PrettyPrintable {
     var description: String {
-        return self.getPropertiesString(self)
+        return self.getPropertiesString()
     }
     
     fileprivate var properties: [String] {
