@@ -30,10 +30,10 @@ public extension PrettyPrintable {
     fileprivate func getPropertyString(property: String, string s: String = "", depth: Int = 0) -> String {
         var string = s
         stride(from: 0, to: depth, by: 1).forEach({ _ in string += "    " })
-        if let newProp = self.value(for: property) as? PrettyPrintable {
+        if let newProp = self.value(forKey: property) as? PrettyPrintable {
             string += "\(property): \(newProp.getPropertiesString(depth: depth, nameless: true))"
             string.insert(",", at: string.index(before: string.endIndex))
-        } else if let arr = self.value(for: property) as? [Any] {
+        } else if let arr = self.value(forKey: property) as? [Any] {
             if arr.count > 0 {
                 string += "\(property): [\n"
                 for element in arr {
@@ -50,7 +50,7 @@ public extension PrettyPrintable {
             } else {
                 string += "\(property): []\n"
             }
-        } else if let value = self.value(for: property) {
+        } else if let value = self.value(forKey: property) {
             string += "\(property): \(value),\n"
         } else {
             string += "\(property): nil,\n"
