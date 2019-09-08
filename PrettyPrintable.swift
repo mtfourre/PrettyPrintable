@@ -10,7 +10,7 @@ public protocol PrettyPrintable {
 }
 
 public extension PrettyPrintable {
-    public var description: String {
+    var description: String {
         return self.getPropertiesString(self)
     }
     
@@ -18,7 +18,7 @@ public extension PrettyPrintable {
         return Mirror(reflecting: self).children.compactMap({ $0.label })
     }
     
-    public func getPropertiesString(depth: Int = 0, nameless: Bool = false) -> String {
+    func getPropertiesString(depth: Int = 0, nameless: Bool = false) -> String {
         var string: String = depth == 0 ? "\n\n" : ""
         string += nameless ? "{\n" : "\(Mirror(reflecting: self).subjectType): {\n"
         self.properties.forEach({ string += self.getPropertyString(property: $0, depth: depth + 1) })
