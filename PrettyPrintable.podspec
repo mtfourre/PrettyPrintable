@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "PrettyPrintable"
-  s.version = "0.0.1"
+  s.version = "0.1.0"
   s.summary = "Protocol which provides an interface for retrieving pretty string representations of objects"
   s.description = "Protocol adopters can retrieve a pretty string representation (description) of themselves rather than the default Swift object notation by adopting the PrettyPrintable protocol"
   s.homepage = "https://github.com/mtfourre/PrettyPrintable"
