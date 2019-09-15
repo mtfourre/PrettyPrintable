@@ -5,7 +5,7 @@
 //  Created by Michael Fourre on 9/15/16.
 //
 
-public protocol PrettyPrintable {
+public protocol PrettyPrintable: CustomStringConvertible {
     
 }
 
