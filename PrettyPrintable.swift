@@ -6,7 +6,7 @@
 //
 
 public protocol PrettyPrintable {
-    func value(forKey key: String) -> Any?
+    
 }
 
 public extension PrettyPrintable {
@@ -14,28 +14,27 @@ public extension PrettyPrintable {
         return self.getPropertiesString()
     }
     
-    fileprivate var properties: [String] {
-        return Mirror(reflecting: self).children.compactMap({ $0.label })
-    }
-    
     func getPropertiesString(depth: Int = 0, nameless: Bool = false) -> String {
         var string: String = depth == 0 ? "\n\n" : ""
-        string += nameless ? "{\n" : "\(Mirror(reflecting: self).subjectType): {\n"
-        self.properties.forEach({ string += self.getPropertyString(property: $0, depth: depth + 1) })
+        let mirror = Mirror(reflecting: self)
+        string += nameless ? "{\n" : "\(mirror.subjectType): {\n"
+        for case (let key?, let value) in mirror.children {
+            string += self.getPropertyString(key: key, value: value, depth: depth + 1)
+        }
         stride(from: 0, to: depth, by: 1).forEach({ _ in string += "    " })
         string += "}\n"
         return string
     }
     
-    fileprivate func getPropertyString(property: String, string s: String = "", depth: Int = 0) -> String {
-        var string = s
+    fileprivate func getPropertyString(key: String, value: Any?, string: String = "", depth: Int = 0) -> String {
+        var string = string
         stride(from: 0, to: depth, by: 1).forEach({ _ in string += "    " })
-        if let newProp = self.value(forKey: property) as? PrettyPrintable {
-            string += "\(property): \(newProp.getPropertiesString(depth: depth, nameless: true))"
+        if let value = value.flattened as? PrettyPrintable {
+            string += "\(key): \(value.getPropertiesString(depth: depth, nameless: true))"
             string.insert(",", at: string.index(before: string.endIndex))
-        } else if let arr = self.value(forKey: property) as? [Any] {
+        } else if let arr = value as? [Any] {
             if arr.count > 0 {
-                string += "\(property): [\n"
+                string += "\(key): [\n"
                 for element in arr {
                     stride(from: 0, through: depth, by: 1).forEach({ _ in string += "    " })
                     if let model = element as? PrettyPrintable {
@@ -48,13 +47,25 @@ public extension PrettyPrintable {
                 stride(from: 0, to: depth, by: 1).forEach({ _ in string += "    " })
                 string += "],\n"
             } else {
-                string += "\(property): []\n"
+                string += "\(key): []\n"
             }
-        } else if let value = self.value(forKey: property) {
-            string += "\(property): \(value),\n"
         } else {
-            string += "\(property): nil,\n"
+            string += "\(key): \(value.flattened ?? "nil"),\n"
         }
         return string
+    }
+}
+
+protocol Flattenable {
+    var flattened: Any? { get }
+}
+
+extension Optional: Flattenable {
+    var flattened: Any? {
+        switch self {
+            case .some(let x as Flattenable): return x.flattened
+            case .some(let x): return x
+            case .none: return nil
+        }
     }
 }
