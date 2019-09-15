@@ -14,7 +14,7 @@ public extension PrettyPrintable {
         return self.getPropertiesString()
     }
     
-    func getPropertiesString(depth: Int = 0, nameless: Bool = false) -> String {
+    private func getPropertiesString(depth: Int = 0, nameless: Bool = false) -> String {
         var string: String = depth == 0 ? "\n\n" : ""
         let mirror = Mirror(reflecting: self)
         string += nameless ? "{\n" : "\(mirror.subjectType): {\n"
@@ -26,7 +26,7 @@ public extension PrettyPrintable {
         return string
     }
     
-    fileprivate func getPropertyString(key: String, value: Any?, string: String = "", depth: Int = 0) -> String {
+    private func getPropertyString(key: String, value: Any?, string: String = "", depth: Int = 0) -> String {
         var string = string
         stride(from: 0, to: depth, by: 1).forEach({ _ in string += "    " })
         if let value = value.flattened as? PrettyPrintable {
