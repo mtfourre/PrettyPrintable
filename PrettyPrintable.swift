@@ -15,7 +15,7 @@ public extension PrettyPrintable {
     }
     
     private func getPropertiesString(depth: Int = 0, nameless: Bool = false) -> String {
-        var string: String = depth == 0 ? "\n\n" : ""
+        var string: String = depth == 0 ? "\n" : ""
         let mirror = Mirror(reflecting: self)
         string += nameless ? "{\n" : "\(mirror.subjectType): {\n"
         for case (let key?, let value) in mirror.children {
