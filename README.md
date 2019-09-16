@@ -67,4 +67,6 @@ Using the above code, our console will display the following:
         },
     }
 
+Note that the properties may not necessarily display in the same order they are defined. Also, in Swift, dictionaries are not ordered; because of this, they will not be printed the same way every time when using PrettyPrintable.
+
 Since PrettyPrintable is freely open source, this implementation could be modified to produce slightly different formatting. Please report any questions or concerns to Michael (mtfourre) here on Github.
