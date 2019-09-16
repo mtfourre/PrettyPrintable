@@ -40,7 +40,7 @@ public extension PrettyPrintable {
             for (index, element) in dictionary {
                 (0 ... depth).forEach({ _ in string += "    " })
                 if let model = element.flattened as? PrettyPrintable {
-                    string += model.getPropertiesString(depth: depth + 1)
+                    string += "\(index.flattened ?? "nil"): \(model.getPropertiesString(depth: depth + 1))"
                     string.insert(",", at: string.index(before: string.endIndex))
                 } else {
                     string += "\(index.flattened ?? "nil"): \(element.flattened ?? "nil"),\n"
