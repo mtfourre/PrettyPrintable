@@ -8,6 +8,7 @@ Consider the following classes with some simple stored properties:
         var int: Int = 1234
         var double: Double = 1234.1234
         var array: [String] = ["first", "second", "third", ]
+        var dictionary: [String:Any] = ["first": "id": "second": 1234, "third": 1234.1234, ]
         var object: AnotherTestObject = AnotherTestObject()
     }
 
@@ -16,6 +17,7 @@ Consider the following classes with some simple stored properties:
         var int: Int = 4321
         var double: Double = 4321.4321
         var array: [String] = ["third", "second", "first", ]
+        var dictionary: [String:Any] = ["third": 4321.4321, "second": 4321, "first": "anotherID", ]
     }
 
 These classes, when sent to the console via `print()`, will usually output in the following manner:
@@ -32,6 +34,7 @@ While this does describe the object type and memory location, this information i
         var int: Int = 1234
         var double: Double = 1234.1234
         var array: [String] = ["first", "second", "third", ]
+        var dictionary: [String:Any] = ["first": "id": "second": 1234, "third": 1234.1234, ]
         var object: AnotherTestObject = AnotherTestObject()
     }
     
@@ -40,6 +43,7 @@ While this does describe the object type and memory location, this information i
         var int: Int = 4321
         var double: Double = 4321.4321
         var array: [String] = ["third", "second", "first", ]
+        var dictionary: [String:Any] = ["third": 4321.4321, "second": 4321, "first": "anotherID", ]
     }
     
     print(TestObject())
@@ -55,6 +59,11 @@ Using the above code, our console will display the following:
             second,
             third,
         ],
+        dictionary: [
+            first: id,
+            second: 1234,
+            third: 1234.1234,
+        ],
         object: {
             string: anotherID,
             int: 4321,
@@ -63,6 +72,11 @@ Using the above code, our console will display the following:
                 third,
                 second,
                 first,
+            ],
+            dictionary: [
+                third: 4321.4321,
+                second: 4321,
+                first: anotherID,
             ],
         },
     }
