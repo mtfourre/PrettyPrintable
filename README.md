@@ -27,7 +27,7 @@ These classes, when sent to the console via `print()`, will usually output in th
 
 While this does describe the object type and memory location, this information is typically not as useful, especially while debugging, as seeing the actual contents of the object. By making some small modifications, we can take advantage of the PrettyPrintable protocol and some standard KVC to produce much prettier and easier to read logs for our console:
 
-    import PrettyPrint
+    import PrettyPrintable
     
     class TestObject: PrettyPrintable {
         var string: String = "id"
