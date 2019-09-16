@@ -32,12 +32,12 @@ public extension PrettyPrintable {
         if let value = value.flattened as? PrettyPrintable {
             string += "\(key): \(value.getPropertiesString(depth: depth, nameless: true))"
             string.insert(",", at: string.index(before: string.endIndex))
-        } else if let dict = value as? [AnyHashable?:Any?] {
-            guard dict.count > 0 else {
+        } else if let dictionary = value as? [AnyHashable?:Any?] {
+            guard dictionary.count > 0 else {
                 return string + "\(key): [:],\n"
             }
             string += "\(key): [\n"
-            for (index, element) in dict {
+            for (index, element) in dictionary {
                 (0 ... depth).forEach({ _ in string += "    " })
                 if let model = element.flattened as? PrettyPrintable {
                     string += model.getPropertiesString(depth: depth + 1)
@@ -48,12 +48,12 @@ public extension PrettyPrintable {
             }
             (0 ..< depth).forEach({ _ in string += "    " })
             string += "],\n"
-        } else if let arr = value as? [Any?] {
-            guard arr.count > 0  else {
+        } else if let array = value as? [Any?] {
+            guard array.count > 0  else {
                 return string + "\(key): [],\n"
             }
             string += "\(key): [\n"
-            for element in arr {
+            for element in array {
                 (0 ... depth).forEach({ _ in string += "    " })
                 if let model = element.flattened as? PrettyPrintable {
                     string += model.getPropertiesString(depth: depth + 1)
