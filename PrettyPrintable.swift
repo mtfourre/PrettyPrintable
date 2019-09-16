@@ -21,14 +21,14 @@ public extension PrettyPrintable {
         for case (let key?, let value) in mirror.children {
             string += self.getPropertyString(key: key, value: value, depth: depth + 1)
         }
-        (0 ..< 1).forEach({ _ in string += "    " })
+        (0 ..< depth).forEach({ _ in string += "    " })
         string += "}\n"
         return string
     }
     
     private func getPropertyString(key: String, value: Any?, string: String = "", depth: Int = 0) -> String {
         var string = string
-        (0 ..< 1).forEach({ _ in string += "    " })
+        (0 ..< depth).forEach({ _ in string += "    " })
         if let value = value.flattened as? PrettyPrintable {
             string += "\(key): \(value.getPropertiesString(depth: depth, nameless: true))"
             string.insert(",", at: string.index(before: string.endIndex))
@@ -36,7 +36,7 @@ public extension PrettyPrintable {
             if arr.count > 0 {
                 string += "\(key): [\n"
                 for element in arr {
-                    (0 ... 1).forEach({ _ in string += "    " })
+                    (0 ... depth).forEach({ _ in string += "    " })
                     if let model = element.flattened as? PrettyPrintable {
                         string += model.getPropertiesString(depth: depth + 1)
                         string.insert(",", at: string.index(before: string.endIndex))
@@ -44,7 +44,7 @@ public extension PrettyPrintable {
                         string += "\(element.flattened ?? "nil"),\n"
                     }
                 }
-                (0 ..< 1).forEach({ _ in string += "    " })
+                (0 ..< depth).forEach({ _ in string += "    " })
                 string += "],\n"
             } else {
                 string += "\(key): []\n"
