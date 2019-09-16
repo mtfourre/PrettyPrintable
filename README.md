@@ -1,5 +1,3 @@
-DISCLAIMER: In its current state, this module may result in crashes when attempting to print Swift types. It is best used in conjunction with Objective-C objects (e.g. CoreData models) which are already limited to using key value compliant types.
-
 # PrettyPrintable
 Protocol which allows adopters to retrieve a pretty string representation (`description`) of themselves rather than the default Swift object notation
 
