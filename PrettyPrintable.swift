@@ -32,16 +32,16 @@ public extension PrettyPrintable {
         if let value = value.flattened as? PrettyPrintable {
             string += "\(key): \(value.getPropertiesString(depth: depth, nameless: true))"
             string.insert(",", at: string.index(before: string.endIndex))
-        } else if let arr = value as? [Any] {
+        } else if let arr = value as? [Any?] {
             if arr.count > 0 {
                 string += "\(key): [\n"
                 for element in arr {
                     (0 ... 1).forEach({ _ in string += "    " })
-                    if let model = element as? PrettyPrintable {
+                    if let model = element.flattened as? PrettyPrintable {
                         string += model.getPropertiesString(depth: depth + 1)
                         string.insert(",", at: string.index(before: string.endIndex))
                     } else {
-                        string += "\(element),\n"
+                        string += "\(element.flattened ?? "nil"),\n"
                     }
                 }
                 (0 ..< 1).forEach({ _ in string += "    " })
