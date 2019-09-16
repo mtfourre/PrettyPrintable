@@ -27,11 +27,7 @@ While this does describe the object type and memory location, this information i
 
     import PrettyPrint
     
-    class TestObject: NSObject, PrettyPrintable {
-        override var description: String {
-            return self.getPropertiesString(self)
-        }
-        
+    class TestObject: PrettyPrintable {
         var string: String = "id"
         var int: Int = 1234
         var double: Double = 1234.1234
@@ -39,7 +35,7 @@ While this does describe the object type and memory location, this information i
         var object: AnotherTestObject = AnotherTestObject()
     }
     
-    class AnotherTestObject: NSObject, PrettyPrintable {
+    class AnotherTestObject: PrettyPrintable {
         var string: String = "anotherID"
         var int: Int = 4321
         var double: Double = 4321.4321
